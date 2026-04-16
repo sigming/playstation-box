@@ -1,0 +1,9 @@
+[project]
+name = 'playstation-box'
+version = '0.1.0'
+description = 'Update a pinned gist to contain PlayStation stats'
+requires-python = '>=3.12'
+dependencies = [
+    'requests',
+    'pynacl',
+]

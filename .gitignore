@@ -1,5 +1,5 @@
 .env
 .DS_Store
-Pipfile.lock
+.venv/
 .idea/
 __pycache__/
