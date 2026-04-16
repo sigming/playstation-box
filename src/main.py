@@ -15,6 +15,7 @@ gist_id = os.environ.get('GIST_ID')
 
 
 if __name__ == '__main__':
+    print('Fetching PlayStation data...')
     psn_client = PSN(npsso=npsso, access_token=psn_access_token, refresh_token=psn_refresh_token)
     update_github_repo_secret(repo=github_repo, github_token=github_token,
                               secret_records={
@@ -40,6 +41,10 @@ if __name__ == '__main__':
         record['progress'] = int(record['earnedTrophiesTotal'] / record['definedTrophiesTotal'] * 100)
         show_records.append(record)
     show_records.sort(key=duration_sorter, reverse=True)
+
+    print(f'Found {len(show_records)} games with play history')
+    print(f'\nTop {min(20, len(show_records))} games by play time:')
+    print('-' * 55)
     gist_content = ''
     for record in show_records[:20]:
         line = [
@@ -49,5 +54,10 @@ if __name__ == '__main__':
             str(record['progress']).rjust(3) + '%'
         ]
         line = ' '.join(line)
+        print(line)
         gist_content += line + '\n'
+    print('-' * 55)
+
+    print('\nUpdating gist...')
     update_gist(gist_id, github_token, gist_content.strip())
+    print('Done!')
